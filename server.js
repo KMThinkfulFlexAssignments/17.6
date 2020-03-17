@@ -35,13 +35,13 @@ app.get('/movie', function handleGetMovies(req, res) {
 
   if (req.query.country) {
     response = response.filter(movies =>
-      movies.country.includes(req.query.country)
+      movies.country.toLowerCase().includes(req.query.toLowerCase().country)
     );
   }
 
   if (req.query.avg_vote) {
     response = response.filter(movies =>
-      movies.avg_vote >= req.query.avg_vote
+      Number(movies.avg_vote) >= Number(req.query.avg_vote)
     );
   }
 
