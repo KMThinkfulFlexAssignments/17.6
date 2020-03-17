@@ -25,7 +25,27 @@ app.use(function validateBearerToken(req, res, next) {
 });
 
 app.get('/movie', function handleGetMovies(req, res) {
-  //start here
+  let response = MOVIEDEX;
+
+  if (req.query.genre) {
+    response = response.filter(movies => 
+      movies.genre.toLowerCase().includes(req.query.genre.toLowerCase())
+    );
+  }
+
+  if (req.query.country) {
+    response = response.filter(movies =>
+      movies.country.includes(req.query.country)
+    );
+  }
+
+  if (req.query.avg_vote) {
+    response = response.filter(movies =>
+      movies.avg_vote >= req.query.avg_vote
+    );
+  }
+
+  res.json(response);
 });
 
 const PORT = 8000;
